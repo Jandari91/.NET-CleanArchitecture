@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace Common;
 
-public class IntegratedTestFactory<TProgram> : WebApplicationFactory<TProgram> where TProgram : class
+public class TestFactory<TProgram> : WebApplicationFactory<TProgram> where TProgram : class
 {
     public GrpcChannel Channel => CreateChannel();
-    public IntegratedTestFactory() { }
+    public TestFactory() { }
 
     protected GrpcChannel CreateChannel()
     {

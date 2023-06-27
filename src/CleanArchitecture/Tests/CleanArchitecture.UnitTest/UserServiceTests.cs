@@ -1,16 +1,15 @@
-﻿using Api.Users;
+using Api.Users;
 using Common;
 using FluentAssertions;
 using Grpc.Net.Client;
-using Microsoft.VisualStudio.TestPlatform.TestHost;
 using Xunit;
 
-namespace CleanArchitrecture.IntegratedTest;
+namespace CleanArchitecture.UnitTest;
 
-public class UserServiceTests : IntegratedTestBase
+public class UserServiceTests : TestBase
 {
     private readonly GrpcChannel _channel;
-    public UserServiceTests(IntegratedTestFactory<Program> factory) : base(factory)
+    public UserServiceTests(TestFactory<Program> factory) : base(factory)
     {
         _channel = factory.Channel;
     }
