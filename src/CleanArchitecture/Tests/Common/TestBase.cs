@@ -1,14 +1,21 @@
-﻿using Microsoft.VisualStudio.TestPlatform.TestHost;
+﻿using Common.Factories;
+using Infrastructure.EFCore;
+using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
 namespace Common;
 
-public class TestBase : IClassFixture<TestFactory<Program>>
+public abstract class TestBase<TFactory> : IClassFixture<TFactory>
+    where TFactory:class, new()
 {
-    public readonly TestFactory<Program> Factory;
+    public readonly ITestFactory<Program, ApplicationDbContext> Factory;
+    public readonly ApplicationDbContext DbContext;
 
-    public TestBase(TestFactory<Program> factory)
+    public TestBase(TFactory factory)
     {
-        Factory = factory;
+        Factory = (factory as ITestFactory<Program, ApplicationDbContext>)!;
+
+        var scope = Factory.CreateScope();
+        DbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     }
 }

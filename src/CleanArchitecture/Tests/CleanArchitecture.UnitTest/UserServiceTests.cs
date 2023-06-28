@@ -9,11 +9,11 @@ using EntityUser = Domain.Entities.User;
 
 namespace CleanArchitecture.UnitTest;
 
-public class UserServiceTests : TestBase
+public class UserServiceTests
 {
     private readonly GrpcChannel _channel;
     private readonly IMapper _mapper;
-    public UserServiceTests(TestFactory<Program> factory) : base(factory)
+    public UserServiceTests(TestFactory<Program> factory)
     {
         _channel = factory.Channel;
         _mapper = factory.Mapper;
