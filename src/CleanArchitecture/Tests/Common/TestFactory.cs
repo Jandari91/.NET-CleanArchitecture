@@ -1,6 +1,9 @@
 using Application.Mappers;
 using Grpc.Net.Client;
+using Infrastructure.Mappers.Mapsters;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
@@ -21,6 +24,15 @@ public class TestFactory<TProgram> : WebApplicationFactory<TProgram>, IAsyncLife
             MaxSendMessageSize = 1024 * 1024 * 1566,
         });
     }
+
+    protected override void ConfigureWebHost(IWebHostBuilder builder)
+    {
+        builder.ConfigureTestServices(services =>
+        {
+            services.AddMapster();
+        });
+    }
+
 
     public Task InitializeAsync()
     {
