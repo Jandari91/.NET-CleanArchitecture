@@ -1,4 +1,5 @@
-﻿using Common.Factories;
+﻿using Application.Mappers;
+using Common.Factories;
 using Grpc.Net.Client;
 using Infrastructure.EFCore;
 using Microsoft.AspNetCore.Hosting;
@@ -18,12 +19,12 @@ public class TestPostgreSqlFactory<TProgram, TDbContext> :
 {
     private readonly PostgreSqlContainer _container;
     public GrpcChannel Channel => CreateChannel();
-
+    public IMapper Mapper { get; set; } = default!;
 
     public TestPostgreSqlFactory()
     {
         _container = new PostgreSqlBuilder()
-            .WithDatabase("dm80")
+            .WithDatabase("DM80")
             .WithUsername("mirero")
             .WithPassword("system")
             .WithEnvironment("TZ", "Asia/Seoul")
@@ -57,7 +58,12 @@ public class TestPostgreSqlFactory<TProgram, TDbContext> :
         });
     }
 
-    public async Task InitializeAsync() => await _container.StartAsync();
+    public async Task InitializeAsync()
+    {
+        await _container.StartAsync();
+        using var scope = Services.CreateScope();
+        Mapper = scope.ServiceProvider.GetRequiredService<IMapper>();
+    }
     public new async Task DisposeAsync() => await _container.DisposeAsync();
 
     public IServiceScope CreateScope() => Services.CreateScope();

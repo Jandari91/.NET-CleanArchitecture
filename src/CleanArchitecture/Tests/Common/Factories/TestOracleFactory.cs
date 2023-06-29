@@ -24,6 +24,9 @@ public class TestOracleFactory<TProgram, TDbContext> :
     public TestOracleFactory()
     {
         _container = new OracleBuilder()
+            .WithEnvironment("APP_USER", "DM80")
+            .WithEnvironment("ORACLE_PASSWORD", "DM80")
+            .WithEnvironment("APP_USER_PASSWORD", "DM80")
             .Build();
     }
 
@@ -34,7 +37,7 @@ public class TestOracleFactory<TProgram, TDbContext> :
             services.RemoveDbContext<TDbContext>();
             services.AddDbContextFactory<ApplicationDbContext>(option =>
             {
-                var url = _container.GetConnectionString();
+                var url = _container.GetConnectionString().Replace("oracle", "DM80");
                 option.UseOracle(url,
                 b => b.MigrationsAssembly(Assembly.GetExecutingAssembly().GetName().Name));
             });
@@ -55,9 +58,6 @@ public class TestOracleFactory<TProgram, TDbContext> :
     public async Task InitializeAsync()
     {
         await _container.StartAsync();
-        await _container.ExecScriptAsync("create user oracle identified by oracle");
-        await _container.ExecScriptAsync("grant connect, resource, dba to oracle");
-        await _container.ExecScriptAsync("commit");
     }
     public new async Task DisposeAsync() => await _container.DisposeAsync();
 

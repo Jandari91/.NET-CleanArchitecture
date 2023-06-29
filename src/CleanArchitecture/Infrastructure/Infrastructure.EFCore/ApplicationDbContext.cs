@@ -11,11 +11,12 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     public DbSet<User> Users { get; set; } = null!;
 
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
 
-        builder.HasDefaultSchema("dm80")
+        builder.HasDefaultSchema("DM80")
                .ApplyConfiguration(new UserEntityConfiguration());
 
         builder.HasUsers();
