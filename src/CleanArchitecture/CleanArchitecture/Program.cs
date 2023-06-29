@@ -11,7 +11,7 @@ builder.Services.AddEFCore(configuration);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-await app.Migration();
+//await app.Migration();
 app.MapGrpcService<UserController>();
 app.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
 

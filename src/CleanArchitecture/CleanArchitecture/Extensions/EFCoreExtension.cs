@@ -11,8 +11,8 @@ public static class EFCoreExtension
     {
         services.AddTransient<IApplicationDbContext, ApplicationDbContext>();
 
-        //services.AddPostgreSql(configuration);
-        services.AddOracle(configuration);
+        services.AddPostgreSql(configuration);
+        //services.AddOracle(configuration);
         //services.AddMsSql(configuration);
         return services;
     }
@@ -45,7 +45,11 @@ public static class EFCoreExtension
         {
             var url = configuration.GetSection("Oracle").Value ?? configuration.GetConnectionString("Oracle");
             option.UseOracle(url,
-                b => b.MigrationsAssembly(Assembly.GetExecutingAssembly().GetName().Name));
+                b =>
+                {
+                    b.UseOracleSQLCompatibility("11");
+                    b.MigrationsAssembly(Assembly.GetExecutingAssembly().GetName().Name);
+                });
         });
         return services;
     }
