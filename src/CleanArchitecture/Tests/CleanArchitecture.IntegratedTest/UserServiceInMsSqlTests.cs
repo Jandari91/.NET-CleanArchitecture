@@ -1,24 +1,23 @@
 ﻿using Api.Users;
-using Common.Factories;
+using Application.Mappers;
+using CleanArchitecture.IntegratedTest.Factories;
 using Common;
+using FluentAssertions;
 using Grpc.Net.Client;
 using Infrastructure.EFCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
-using FluentAssertions;
+using EntityUser = Domain.Entities.User;
 
 namespace CleanArchitecture.IntegratedTest;
 
-public class UserServiceInMsSqlTests : TestBase<TestMsSqlFactory<Program, ApplicationDbContext>>
+public class UserServiceInMsSqlTests : TestBase<MsSqlFactory<Program, ApplicationDbContext>>
 {
     private readonly GrpcChannel _channel;
-    public UserServiceInMsSqlTests(TestMsSqlFactory<Program, ApplicationDbContext> factory) : base(factory)
+    private readonly IMapper _mapper;
+    public UserServiceInMsSqlTests(MsSqlFactory<Program, ApplicationDbContext> factory)
     {
         _channel = factory.Channel;
+        _mapper = factory.Mapper;
     }
 
     [Fact]
@@ -29,8 +28,37 @@ public class UserServiceInMsSqlTests : TestBase<TestMsSqlFactory<Program, Applic
 
         // Act
         var response = await client.GetUsersAsync(new GetUserRequest { });
-
+        var result = _mapper.Map<IEnumerable<EntityUser>>(response.Users);
         // Assert
-        response.Should().NotBeNull();
+
+        result.Should().HaveCount(5);
+        result.Should().SatisfyRespectively(
+            first =>
+            {
+                first.Name.Should().Be("박영석");
+                first.Email.Should().Be("bak@gmail.com");
+            },
+            second =>
+            {
+                second.Name.Should().Be("안성윤");
+                second.Email.Should().Be("an@gmail.com");
+
+            },
+            third =>
+            {
+                third.Name.Should().Be("이건우");
+                third.Email.Should().Be("lee@gmail.com");
+
+            },
+            fourth =>
+            {
+                fourth.Name.Should().Be("장동계");
+                fourth.Email.Should().Be("jang@gmail.com");
+            },
+            fifth =>
+            {
+                fifth.Name.Should().Be("조범희");
+                fifth.Email.Should().Be("jo@gmail.com");
+            });
     }
 }

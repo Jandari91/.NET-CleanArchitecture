@@ -1,12 +1,11 @@
-﻿using Application.Persistences;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Infrastructure.EFCore.EntityConfigurations;
 using Infrastructure.EFCore.EntityInitialize;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.EFCore;
 
-public class ApplicationDbContext : DbContext, IApplicationDbContext
+public class ApplicationDbContext : DbContext
 {
     public DbSet<User> Users { get; set; } = null!;
 

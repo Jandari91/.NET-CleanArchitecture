@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
-namespace Common;
+namespace CleanArchitecture.UnitTest.Factories;
 
 public class TestFactory<TProgram> : WebApplicationFactory<TProgram>, IAsyncLifetime where TProgram : class
 {
@@ -32,7 +32,6 @@ public class TestFactory<TProgram> : WebApplicationFactory<TProgram>, IAsyncLife
             services.AddMapster();
         });
     }
-
 
     public Task InitializeAsync()
     {

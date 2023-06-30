@@ -1,6 +1,6 @@
 ﻿using Api.Users;
+using CleanArchitecture.IntegratedTest.Factories;
 using Common;
-using Common.Factories;
 using FluentAssertions;
 using Grpc.Net.Client;
 using Infrastructure.EFCore;
@@ -8,10 +8,10 @@ using Xunit;
 
 namespace CleanArchitecture.IntegratedTest;
 
-public class UserServiceInOracleTests : TestBase<TestOracleFactory<Program, ApplicationDbContext>>
+public class UserServiceInOracleTests : TestBase<OracleFactory<Program, ApplicationDbContext>>
 {
     private readonly GrpcChannel _channel;
-    public UserServiceInOracleTests(TestOracleFactory<Program, ApplicationDbContext> factory) : base(factory)
+    public UserServiceInOracleTests(OracleFactory<Program, ApplicationDbContext> factory)
     {
         _channel = factory.Channel;
     }

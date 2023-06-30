@@ -1,6 +1,6 @@
 using Api.Users;
 using Application.Mappers;
-using Common;
+using CleanArchitecture.UnitTest.Factories;
 using FluentAssertions;
 using Grpc.Net.Client;
 using Xunit;

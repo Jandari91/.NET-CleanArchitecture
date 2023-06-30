@@ -1,9 +1,6 @@
-using Application;
-using Grpc.Core;
-using EntityUser = Domain.Entities.User;
-using DtoUser = Api.Users.User;
 using Api.Users;
-using Application.Mappers;
+using CleanArchitecture.Core.Application;
+using Grpc.Core;
 
 namespace CleanArchitecture.Services
 {
@@ -11,22 +8,17 @@ namespace CleanArchitecture.Services
     {
         private readonly ILogger<UserController> _logger;
         private readonly IUserService _userService;
-        private readonly IMapper _mapper;
         public UserController(
             ILogger<UserController> logger,
-            IUserService userService,
-            IMapper mapper)
+            IUserService userService)
         {
             _logger = logger;
             _userService = userService;
-            _mapper = mapper;
         }
 
         public override async Task<GetUserReply> GetUsers(GetUserRequest request, ServerCallContext context)
         {
-            var entities = await _userService.GetUsers();
-            var dtos = _mapper.Map<IEnumerable <DtoUser>>(entities);
-
+            var dtos = await _userService.GetAllUsers();
             return await Task.FromResult(new GetUserReply()
             {
                 Users = { dtos },

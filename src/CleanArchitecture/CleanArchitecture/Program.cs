@@ -6,8 +6,10 @@ var configuration = builder.Configuration;
 
 builder.Services.AddGrpc();
 builder.Services.AddMapper();
+builder.Services.AddRepositories();
 builder.Services.AddServices();
 builder.Services.AddEFCore(configuration);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
