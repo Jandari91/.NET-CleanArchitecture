@@ -1,4 +1,4 @@
-Ôªøusing Api.Users;
+using Api.Users;
 using Application.Mappers;
 using CleanArchitecture.IntegratedTest.Factories;
 using Common;
@@ -8,13 +8,13 @@ using Infrastructure.EFCore;
 using Xunit;
 using EntityUser = Domain.Entities.User;
 
-namespace CleanArchitecture.IntegratedTest;
+namespace CleanArchitecture.IntegratedTest.UserServiceTests;
 
-public class UserServiceInMsSqlTests : TestBase<MsSqlFactory<Program, ApplicationDbContext>>
+public class UserServiceInPostgresTests : TestBase<PostgresFactory<Program, ApplicationDbContext>>
 {
     private readonly GrpcChannel _channel;
     private readonly IMapper _mapper;
-    public UserServiceInMsSqlTests(MsSqlFactory<Program, ApplicationDbContext> factory)
+    public UserServiceInPostgresTests(PostgresFactory<Program, ApplicationDbContext> factory)
     {
         _channel = factory.Channel;
         _mapper = factory.Mapper;
@@ -35,29 +35,29 @@ public class UserServiceInMsSqlTests : TestBase<MsSqlFactory<Program, Applicatio
         result.Should().SatisfyRespectively(
             first =>
             {
-                first.Name.Should().Be("Î∞ïÏòÅÏÑù");
+                first.Name.Should().Be("π⁄øµºÆ");
                 first.Email.Should().Be("bak@gmail.com");
             },
             second =>
             {
-                second.Name.Should().Be("ÏïàÏÑ±Ïú§");
+                second.Name.Should().Be("æ»º∫¿±");
                 second.Email.Should().Be("an@gmail.com");
 
             },
             third =>
             {
-                third.Name.Should().Be("Ïù¥Í±¥Ïö∞");
+                third.Name.Should().Be("¿Ã∞«øÏ");
                 third.Email.Should().Be("lee@gmail.com");
 
             },
             fourth =>
             {
-                fourth.Name.Should().Be("Ïû•ÎèôÍ≥Ñ");
+                fourth.Name.Should().Be("¿Âµø∞Ë");
                 fourth.Email.Should().Be("jang@gmail.com");
             },
             fifth =>
             {
-                fifth.Name.Should().Be("Ï°∞Î≤îÌù¨");
+                fifth.Name.Should().Be("¡∂π¸»Ò");
                 fifth.Email.Should().Be("jo@gmail.com");
             });
     }

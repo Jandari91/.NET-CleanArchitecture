@@ -1,17 +1,10 @@
 ﻿using Domain.Entities;
-using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.EFCore.EntityInitialize;
+namespace Infrastructure.Persistence.Common;
 
-public static class UserEntityInitialize
+public static class UserEntityDatas
 {
-    public static ModelBuilder HasUsers(this ModelBuilder modelBuilder)
-    {
-        modelBuilder.Entity<User>().HasData(InitUsers());
-        return modelBuilder;
-    }
-
-    private static IEnumerable<User> InitUsers()
+    public static IEnumerable<User> InitUsers()
     {
         return new List<User>()
         {

@@ -1,7 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿namespace Common;
 
-namespace Common;
-
-public interface ITestFactory<TProgram, TDbContext> where TProgram : class where TDbContext : DbContext
+public interface ITestFactory<TProgram, TDbContext> where TProgram : class where TDbContext : class
 {
 }

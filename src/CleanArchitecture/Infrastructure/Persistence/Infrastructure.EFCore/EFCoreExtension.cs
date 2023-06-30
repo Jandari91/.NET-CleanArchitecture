@@ -1,20 +1,12 @@
-﻿using Application.Persistences;
-using Infrastructure.EFCore;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
-namespace CleanArchitecture.Extensions;
+namespace Infrastructure.EFCore;
 
 public static class EFCoreExtension
 {
-    public static IServiceCollection AddEFCore(this IServiceCollection services, IConfiguration configuration)
-    {
-        services.AddPostgreSql(configuration);
-        //services.AddOracle(configuration);
-        //services.AddMsSql(configuration);
-        return services;
-    }
-
     public static IServiceCollection AddPostgreSql(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddDbContextFactory<ApplicationDbContext>(option =>

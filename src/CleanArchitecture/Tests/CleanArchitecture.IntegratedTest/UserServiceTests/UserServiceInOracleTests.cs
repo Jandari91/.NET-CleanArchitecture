@@ -6,7 +6,7 @@ using Grpc.Net.Client;
 using Infrastructure.EFCore;
 using Xunit;
 
-namespace CleanArchitecture.IntegratedTest;
+namespace CleanArchitecture.IntegratedTest.UserServiceTests;
 
 public class UserServiceInOracleTests : TestBase<OracleFactory<Program, ApplicationDbContext>>
 {

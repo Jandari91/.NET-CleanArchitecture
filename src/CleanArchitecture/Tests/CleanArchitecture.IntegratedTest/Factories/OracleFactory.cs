@@ -26,7 +26,7 @@ public class OracleFactory<TProgram, TDbContext> : TestDatabaseFactory<TProgram,
             services.AddDbContextFactory<TDbContext>(option =>
             {
                 var url = _container.GetConnectionString();
-                option.UseSqlServer(url,
+                option.UseOracle(url,
                     b => b.MigrationsAssembly(Assembly.GetExecutingAssembly().GetName().Name));
             });
             services.EnsureDbCreated<TDbContext>();

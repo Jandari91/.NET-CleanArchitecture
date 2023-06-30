@@ -1,20 +1,20 @@
-using Api.Users;
+Ôªøusing Api.Users;
 using Application.Mappers;
 using CleanArchitecture.IntegratedTest.Factories;
 using Common;
 using FluentAssertions;
 using Grpc.Net.Client;
-using Infrastructure.EFCore;
+using Infrastructure.MongoDB;
 using Xunit;
 using EntityUser = Domain.Entities.User;
 
-namespace CleanArchitecture.IntegratedTest;
+namespace CleanArchitecture.IntegratedTest.UserServiceTests;
 
-public class UserServiceInPostgresTests : TestBase<PostgresFactory<Program, ApplicationDbContext>>
+public class UserServiceInMongoDBTests : TestBase<MongoDBFactory<Program, ApplicationDbContext>>
 {
     private readonly GrpcChannel _channel;
     private readonly IMapper _mapper;
-    public UserServiceInPostgresTests(PostgresFactory<Program, ApplicationDbContext> factory)
+    public UserServiceInMongoDBTests(MongoDBFactory<Program, ApplicationDbContext> factory)
     {
         _channel = factory.Channel;
         _mapper = factory.Mapper;
@@ -23,41 +23,43 @@ public class UserServiceInPostgresTests : TestBase<PostgresFactory<Program, Appl
     [Fact]
     public async Task Should_Be_User_Count_Is_Five()
     {
+        // RepositoryExtension.AddRepositories() MongoDBÏö© RepositoryÎ°ú Î≥ÄÍ≤ΩÌï¥Ï§òÏïº Ìï®.
+
         // Arrange
         var client = new UsersGrpc.UsersGrpcClient(_channel);
 
         // Act
         var response = await client.GetUsersAsync(new GetUserRequest { });
-        var result  = _mapper.Map<IEnumerable<EntityUser>>(response.Users);
+        var result = _mapper.Map<IEnumerable<EntityUser>>(response.Users);
         // Assert
 
         result.Should().HaveCount(5);
         result.Should().SatisfyRespectively(
             first =>
             {
-                first.Name.Should().Be("π⁄øµºÆ");
+                first.Name.Should().Be("Î∞ïÏòÅÏÑù");
                 first.Email.Should().Be("bak@gmail.com");
             },
             second =>
             {
-                second.Name.Should().Be("æ»º∫¿±");
+                second.Name.Should().Be("ÏïàÏÑ±Ïú§");
                 second.Email.Should().Be("an@gmail.com");
-                
+
             },
             third =>
             {
-                third.Name.Should().Be("¿Ã∞«øÏ");
+                third.Name.Should().Be("Ïù¥Í±¥Ïö∞");
                 third.Email.Should().Be("lee@gmail.com");
-               
+
             },
             fourth =>
             {
-                fourth.Name.Should().Be("¿Âµø∞Ë");
+                fourth.Name.Should().Be("Ïû•ÎèôÍ≥Ñ");
                 fourth.Email.Should().Be("jang@gmail.com");
             },
             fifth =>
             {
-                fifth.Name.Should().Be("¡∂π¸»Ò");
+                fifth.Name.Should().Be("Ï°∞Î≤îÌù¨");
                 fifth.Email.Should().Be("jo@gmail.com");
             });
     }

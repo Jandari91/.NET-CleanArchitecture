@@ -3,7 +3,6 @@ using Common;
 using DotNet.Testcontainers.Containers;
 using Grpc.Net.Client;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
@@ -13,7 +12,7 @@ public class TestDatabaseFactory<TProgram, TDbContext> :
     WebApplicationFactory<TProgram>,
     ITestFactory<TProgram, TDbContext>,
     IAsyncLifetime
-     where TProgram : class where TDbContext : DbContext
+     where TProgram : class where TDbContext : class
 {
     private readonly IContainer _container;
     public GrpcChannel Channel => CreateChannel();
