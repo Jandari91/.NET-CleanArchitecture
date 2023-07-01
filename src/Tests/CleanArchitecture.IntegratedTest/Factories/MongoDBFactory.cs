@@ -1,6 +1,6 @@
 ﻿using Application.Persistences;
 using Domain.Entities;
-using Infrastructure.Persistence.Common;
+using Infrastructure.Persistence.Common.EntityDatas;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
@@ -39,6 +39,6 @@ public class MongoDBFactory<TProgram, TDbContext> : TestDatabaseFactory<TProgram
         var client = new MongoClient(new MongoUrl(_container.GetConnectionString()));
         var db = client.GetDatabase("Test");
         var collection = db.GetCollection<User>(nameof(User));
-        collection.InsertMany(UserEntityDatas.InitUsers());
+        collection.InsertMany(UserEntityDatas.Initialize());
     }
 }

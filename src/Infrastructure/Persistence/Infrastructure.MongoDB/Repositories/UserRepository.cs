@@ -49,6 +49,11 @@ public class UserRepository : IUserRepository
         throw new NotImplementedException();
     }
 
+    public Task<IEnumerable<User>> GetGroupMembers(Guid groupId)
+    {
+        throw new NotImplementedException();
+    }
+
     public User Update(User entity)
     {
         throw new NotImplementedException();
