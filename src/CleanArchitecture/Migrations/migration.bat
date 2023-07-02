@@ -20,8 +20,8 @@ IF ERRORLEVEL 1 (
 
 :: dotent Migration Ω√¿€
 :: SET DATABASE=MsSql
-SET DATABASE=Postgres
-:: SET DATABASE=Oracle
+:: SET DATABASE=Postgres
+SET DATABASE=Oracle
 SET VERSION=1.0.0
 ::dotnet ef migrations add -o Migrations/%DATABASE% Migration_%DATABASE%_%VERSION% --project ../CleanArchitecture.csproj
 dotnet ef migrations add Migration_%VERSION% --project ../CleanArchitecture.csproj
