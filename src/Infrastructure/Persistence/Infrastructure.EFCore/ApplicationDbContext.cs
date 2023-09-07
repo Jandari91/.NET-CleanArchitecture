@@ -40,6 +40,7 @@ public class ApplicationDbContext : DbContext
                .HasActivity()
                .HasExpense()
                .HasAttendant();
+
     }
 
     public async Task<IDbContextTransaction?> BeginTransactionAsync()

@@ -24,6 +24,10 @@ public class TransactionBehavior<TRequest, TResponse> : IPipelineBehavior<TReque
     {
         if (request == null)
             throw new ArgumentNullException(nameof(request));
+
+        if (_dbContext.Database.IsInMemory())
+            return await next();
+
         var typeName = request.GetGenericTypeName();
 
         try

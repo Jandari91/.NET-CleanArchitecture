@@ -17,4 +17,13 @@ public static class EFCoreExtension
         });
         return services;
     }
+
+    public static IServiceCollection AddInMemory(this IServiceCollection services, string assemblyName)
+    {
+        services.AddDbContext<ApplicationDbContext>(option =>
+        {
+           option.UseInMemoryDatabase(assemblyName);
+        });
+        return services;
+    }
 }
