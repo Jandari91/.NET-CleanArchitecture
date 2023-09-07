@@ -2,13 +2,10 @@
 
 public interface IBaseRepository<T> where T : class
 {
-    T Create(T entity);
-    T Update(T entity);
-    T Delete(T entity);
-    T CreateAsync(T entity);
-    T UpdateAsync(T entity);
-    T DeleteAsync(T entity);
-    Task<T> GetAsync(Guid id, CancellationToken cancellationToken = default);
+    Task<T> CreateAsync(T entity, CancellationToken cancellationToken = default);
+    Task<T> UpdateAsync(T entity, CancellationToken cancellationToken = default);
+    Task<bool> DeleteAsync(long id, CancellationToken cancellationToken = default);
+    Task<T> GetAsync(long id, CancellationToken cancellationToken = default);
     Task<IEnumerable<T>> GetAllAsync(CancellationToken cancellationToken = default);
-    Task<IEnumerable<T>> FindAllAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken = default);
+    Task<IEnumerable<T>> FindAllAsync(IEnumerable<long> ids, CancellationToken cancellationToken = default);
 }

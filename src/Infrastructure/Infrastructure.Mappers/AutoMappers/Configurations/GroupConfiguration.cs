@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using EntityGroup = Domain.Entities.Group;
-using DtoGroup = Api.Users.Group;
+using DtoGroup = Api.Groups.Group;
 
 namespace Infrastructure.Mappers.AutoMappers.Configurations;
 

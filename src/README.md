@@ -1,45 +1,43 @@
-# Å°¿öµå
+## í‚¤ì›Œë“œ
 
-1. Dependency Injection
-2. ÀÇÁ¸¼º ¿ªÀü ¿øÄ¢(DIP)
-3. EF Core
-4. Repository Pattern
-5. ÅëÇÕ Å×½ºÆ®(Container)
+* CQRS
+* AOP => Cross-Cutting
+  * 
+* MediatR
+  * MediatR IPipelineBehavior => Chain of Responsibility Pattern
+* MockQueryable.Moq
+* ITestCaseOrderer
 
-* DI¸¸ Á¶Á¤ÇÏ¸ç, Postgresql -> Oracle -> MsSQL-> MongoDB¸¦ ÀÚÀ¯·Ó°Ô º¯°æ °¡´É
-* Docker¸¦ »ç¿ëÇØ¼­ IntegratedTest¸¦ »ç¿ë ÇÒ ¶§ Database¸¦ ÀÚµ¿À¸·Î ±¸ÃàÇØ¼­ »ç¿ëÇÏµµ·Ï ÇÔ
+## CQRS
 
-## Database º¯°æ Å×½ºÆ®
+CQRSëŠ” Command Query Responsibility Segregationìœ¼ë¡œ ëª…ë ¹(Create, Delete, Update)ì™€ ì¡°íšŒ(Select) ì±…ì„ì„ ë¶„ë¦¬í•˜ëŠ” ì„¤ê³„ íŒ¨í„´ì…ë‹ˆë‹¤.
+CQRSë¥¼ ì‚¬ìš©í•˜ë©´ ë³µì¡í•œ ë¹„ì¦ˆë‹ˆìŠ¤ë¥¼ ë…ë¦½ì ìœ¼ë¡œ ë§Œë“¤ì–´ í•œ ê³³ì—ì„œ ì§‘ì¤‘í•´ì„œ ê´€ë¦¬ê°€ ê°€ëŠ¥í•˜ê²Œ í•´ì¤ë‹ˆë‹¤.
+ë˜í•œ Commandì™€ Queryë¥¼ ë¶„ë¦¬í•˜ê²Œ ë˜ë©´ ì¶”í›„ ì„œë¹„ìŠ¤ì™€ ë°ì´í„°ë² ì´ìŠ¤ ìì²´ë¥¼ ë¶„ë¦¬í•˜ì—¬ ì‚¬ìš©í•˜ê¸°ë„ í¸í•©ë‹ˆë‹¤.
 
-* 4Â÷¿¡¼­´Â Postgres¿Í MongoDB¸¸ ³²±â°í MSSQL°ú OracleÀº Á¦°Å ÇÒ ¿¹Á¤
+#### MediatR
+C#ì—ì„œ CQRSë¥¼ í¸í•˜ê²Œ ë§Œë“¤ì–´ì£¼ëŠ” ëŒ€í‘œì ì¸ ë¼ì´ë¸ŒëŸ¬ë¦¬ëŠ” [MediatR](https://github.com/jbogard/MediatR)ì´ ìˆìŠµë‹ˆë‹¤.
 
-#### 1. Postgresql, MsSQL
+#### MediatR IPipelineBehavior
 
-* µû·Î ¼³Á¤ ÇÒ ÇÊ¿ä ¾øÀÌ Å×½ºÆ® ÄÚµå ½ÇÇà °¡´É
-* PostgresFactory.csÀÇ Line 24¿¡¼­ BreakPoint¸¦ Âï°í Á¢¼Ó URL¸¦ È®ÀÎ °¡´É(Port ¹ÙÀÎµùÀÌ ·£´ıÀ¸·Î µÇ±â ¶§¹®)
-* GetConnectionString()¸¦ F12·Î µé¾î°¡º¸¸é 
-Database: Postgres
-Username : postgres
-Password : postgres
-·Î µÇ¾î ÀÖÀ½
-Port´Â 5432ÀÌÁö¸¸ Container°¡ ¶ç¿öÁö¸é¼­ ·£´ı Port·Î Æ÷¿öµù µÇ±â ¶§¹®¿¡ È®ÀÎÇØ¼­ Á¢¼ÓÇØ¾ßÇÔ.
+MediatRì—ì„œëŠ” PipeLineBehaviorì„ í†µí•´ Handler ì „, í›„ì— ì–´ë– í•œ ì‘ì—…ì„ í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.
+ì´ëŠ” [Chain of Responsibility Patternì„ ì‚¬ìš©](https://arturkrajewski.silvrback.com/chain-of-responsibility-pattern-for-handling-cross-cutting-concerns)í•´ì„œ Cross-Cutting ë¬¸ì œë¥¼ í•´ê²° í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.
 
+* [ì°¸ê³ ](https://learn.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/microservice-application-layer-implementation-web-api#use-the-mediator-pattern-in-memory-in-the-command-pipeline)
 
-#### 3. ¿À¶óÅ¬
+## CQRS í…ŒìŠ¤íŠ¸
+## ë‹¨ìœ„ í…ŒìŠ¤íŠ¸
 
-* ºñÃß Docker Image 4.5GB
-* ½ÇÇàÇÏ°í ½ÍÀ¸¸é, Migrations Æú´õ¿¡¼­ migration.bat ½ÇÇàÇØ¾ßÇÔ.
+Databaseë¥¼ ì‹¤í–‰ ì‹œì¼œ í…ŒìŠ¤íŠ¸í•˜ëŠ” í†µí•©í…ŒìŠ¤íŠ¸ëŠ” ì†ë„ê°€ ëŠë¦¬ê³ , Seed ë°ì´í„°ê°€ ê³ ì •ì ì…ë‹ˆë‹¤.
+ê°œë°œìê°€ ìì‹ ì´ ë§Œë“  í…ŒìŠ¤íŠ¸ ë°ì´í„°ë¡œ ë§ˆìŒëŒ€ë¡œ ë§Œë“¤ì–´ í…ŒìŠ¤íŠ¸í•˜ê¸°ì—ëŠ” ë‹¨ìœ„ í…ŒìŠ¤íŠ¸ë¥¼ ì‚¬ìš©í•˜ëŠ” ê²ƒì´ ì¢‹ìŠµë‹ˆë‹¤.
+dbContextë¥¼ Mockingí•˜ê¸° ìœ„í•´ [MockQueryable](https://github.com/romantitov/MockQueryable)ë¥¼ ì‚¬ìš©í•˜ë©´ í¸í•©ë‹ˆë‹¤.
 
+í•˜ì§€ë§Œ CRUDë¥¼ í…ŒìŠ¤íŠ¸í•˜ê¸° ìœ„í•´ì„œëŠ” ë”°ë¡œ Setupì„ ì§„í–‰í•´ì¤˜ì•¼ í•©ë‹ˆë‹¤.
+MockDbContextë¥¼ ì°¸ê³ í•˜ì„¸ìš”.
 
-## ApplicationDbContext Ãß°¡ ¼³¸í
+#### í†µí•© í…ŒìŠ¤íŠ¸
 
-* ÀÎÅÍ³İ¿¡ CleanArchitecture ¼Ò½º ÄÚµå³ª ADCEdge ¼Ò½º ÄÚµå¸¦ º¸¸é ApplicationDbContext°¡ Application Layer¿¡ Á¸ÀçÇÔ.
-* ÀÌÀ¯´Â EF Core ÀÚÃ¼°¡ Ãß»óÈ­ µÇ¾î ÀÖ´Ù°í ÆÇ´ÜÇÏ±â ¶§¹®¿¡
-  * ½±°Ô ÀÌ¾ß±âÇÏ¸é EF Core°¡ Oracle, Postgres, MsSQL µî ¾öÃ» ¸¹Àº Database¸¦ Áö¿øÇÏ±â ¶§¹®¿¡ µû·Î Application Layer¿¡¼­ Ãß»óÈ­ ÇÒ ÇÊ¿ä°¡ ¾ø´Ù
-* ÇÏÁö¸¸ ¿©±â¼­´Â IRepository¸¦ ¸¸µé°í ApplicationDbContext°¡ Infrastructure Layer¿¡ Á¸Àç
-* ÀÌÀ¯´Â EF Core°¡ MongoDB¸¦ Áö¿øÇÏÁö ¾Ê°í, EF Core <-> Dapper¸¦ º¯°æ °¡´ÉÇÏµµ·Ï ¸¸µé±â À§ÇÔ
+í†µí•© í…ŒìŠ¤íŠ¸ëŠ” Databaseë¥¼ ì‹¤í–‰ ì‹œì¼œ í…ŒìŠ¤íŠ¸ë¥¼ í•˜ê²Œ ë©ë‹ˆë‹¤.
+í•˜ì§€ë§Œ ë¬¸ì œê°€ ìˆëŠ”ë°, xUnitì€ ìˆœì„œ ì—†ì´ ì‹¤í–‰ ë˜ê¸° ë•Œë¬¸ì— CRUD ì‹œ Seed ë°ì´í„°ê°€ ë³€ê²½ë˜ê¸° ë•Œë¬¸ì— í…ŒìŠ¤íŠ¸ í•˜ê¸° ê¹Œë‹¤ë¡­ìŠµë‹ˆë‹¤.
 
+ì´ë•Œ xUnitì—ì„œ ì œê³µí•˜ëŠ” [ITestCaseOrderer](https://learn.microsoft.com/ko-kr/dotnet/core/testing/order-unit-tests?pivots=xunit)ë¥¼ ì‚¬ìš©í•˜ë©´ ìˆœì„œë¥¼ ì •í•´ í¸í•˜ê²Œ í…ŒìŠ¤íŠ¸í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.
 
-## °úÁ¦(ÇÏ°í ½ÍÀ¸¸é ½Ãµµ)
-* Dapper¸¦ Ãß°¡ÇÑ´Ù.
-* Migrations(https://fluentmigrator.github.io/) »ç¿ëÇÏ¸é ‰?

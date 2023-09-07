@@ -18,7 +18,7 @@ public class UserRepository : IUserRepository
         throw new NotImplementedException();
     }
 
-    public User CreateAsync(User entity)
+    public Task<User> CreateAsync(User entity, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
     }
@@ -28,28 +28,37 @@ public class UserRepository : IUserRepository
         throw new NotImplementedException();
     }
 
-    public User DeleteAsync(User entity)
+    public Task<User> DeleteAsync(User entity, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
     }
 
-    public Task<IEnumerable<User>> FindAllAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken = default)
+    public Task<IEnumerable<User>> FindAllAsync(IEnumerable<long> ids, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
     }
 
-    public async Task<IEnumerable<User>> GetAllAsync(CancellationToken cancellationToken = default)
-    {
-        var result = await _userCollection.Find(_ => true).SortBy(_ => _.Name).ToListAsync();
-        return result;
-    }
-
-    public Task<User> GetAsync(Guid id, CancellationToken cancellationToken = default)
+    public Task<IEnumerable<User>> GetAllAsync(CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
     }
 
-    public Task<IEnumerable<User>> GetGroupMembers(Guid groupId)
+    public Task<IEnumerable<User>> GetAllGroupMembers(CancellationToken cancellationToken = default)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<User> GetAsync(long id, CancellationToken cancellationToken = default)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<IEnumerable<User>> GetGroupMembers(long grouId, CancellationToken cancellationToken = default)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<int> SaveChanges()
     {
         throw new NotImplementedException();
     }
@@ -59,7 +68,12 @@ public class UserRepository : IUserRepository
         throw new NotImplementedException();
     }
 
-    public User UpdateAsync(User entity)
+    public Task<User> UpdateAsync(User entity, CancellationToken cancellationToken = default)
+    {
+        throw new NotImplementedException();
+    }
+
+    Task<bool> IBaseRepository<User>.DeleteAsync(User entity, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }

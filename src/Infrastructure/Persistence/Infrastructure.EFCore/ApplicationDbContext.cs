@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Application.Persistences;
+using Domain.Entities;
 using Infrastructure.EFCore.EntityConfigurations;
 using Infrastructure.EFCore.EntityInitialize;
 using Microsoft.EntityFrameworkCore;
@@ -7,9 +8,9 @@ namespace Infrastructure.EFCore;
 
 public class ApplicationDbContext : DbContext
 {
-    public DbSet<User> Users { get; set; } = null!;
-    public DbSet<Group> Groups { get; set; } = null!;
-    public DbSet<MemberUserGroup> MemberUserGroups { get; set; } = null!;
+    public virtual DbSet<User> Users { get; set; } = null!;
+    public virtual DbSet<Group> Groups { get; set; } = null!;
+    public virtual DbSet<MemberUserGroup> MemberUserGroups { get; set; } = null!;
 
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 

@@ -1,43 +1,39 @@
 using Api.Users;
-using CleanArchitecture.Core.Application;
+using CleanArchitecture.Core.Application.Features.Users.Commands;
+using CleanArchitecture.Core.Application.Features.Users.Queries;
 using Grpc.Core;
+using MediatR;
 
 namespace CleanArchitecture.Services
 {
     public class UserController : UsersGrpc.UsersGrpcBase
     {
         private readonly ILogger<UserController> _logger;
-        private readonly IUserService _userService;
-        private readonly IGroupService _groupService;
-        // Controller가 Service에 의존하고 있다.
-        // 나중에 의존하는 Service가 많아지면 관리가 힘들다.
-        // => 중재자 패턴으로 해결가능
+        private readonly IMediator _mediator;
+ 
         public UserController(
             ILogger<UserController> logger,
-            IUserService userService,
-            IGroupService groupService)
+            IMediator mediator)
         {
             _logger = logger;
-            _userService = userService;
-            _groupService = groupService;
+            _mediator = mediator;
         }
+        public override async Task<GetAllUsersReply> GetAllUsers(GetAllUsersRequest request, ServerCallContext context)
+            => new GetAllUsersReply() { Users = { await _mediator.Send(new GetAllUsersQuery()) } };
 
-        public override async Task<GetUserReply> GetUsers(GetUserRequest request, ServerCallContext context)
-        {
-            var dtos = await _userService.GetAllUsers();
-            return new GetUserReply()
-            {
-                Users = { dtos },
-            };
-        }
+        public override async Task<GetUserByIdReply> GetUserById(GetUserByIdRequest request, ServerCallContext context)
+            => new GetUserByIdReply() { User = await _mediator.Send(new GetUserByIdQuery(request.Id)) };
 
-        public override async Task<GetGroupReply> GetGroups(GetGroupRequest request, ServerCallContext context)
-        {
-            var dtos = await _groupService.GetAllGroups();
-            return new GetGroupReply()
-            {
-                Groups = { dtos }
-            };
-        }
+        public override async Task<GetMemebersByGroupIdReply> GetMemebersByGroupId(GetMemebersByGroupIdRequest request, ServerCallContext context)
+            => new GetMemebersByGroupIdReply() { Users = { await _mediator.Send(new GetAllUsersByGroupIdQuery(request.Id)) } };
+
+        public override async Task<CreateUserReply> CreateUser(CreateUserRequest request, ServerCallContext context)
+            => new CreateUserReply() { User = await _mediator.Send(new CreateUserCommand(request.User)) };
+
+        public override async Task<DeleteUserReply> DeleteUser(DeleteUserRequest request, ServerCallContext context)
+            => new DeleteUserReply() { Result = await _mediator.Send(new DeleteUserCommand(request.UserId)) };
+
+        public override async Task<UpdateUserReply> UpdateUser(UpdateUserRequest request, ServerCallContext context)
+            => new UpdateUserReply() { User = await _mediator.Send(new UpdateUserCommand(request.User)) };
     }
 }

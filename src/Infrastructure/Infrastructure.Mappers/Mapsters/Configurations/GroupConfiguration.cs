@@ -1,5 +1,5 @@
 ﻿using Mapster;
-using DtoGroup = Api.Users.Group;
+using DtoGroup = Api.Groups.Group;
 using EntityGroup = Domain.Entities.Group;
 
 namespace Infrastructure.Mappers.Mapsters.Configurations;

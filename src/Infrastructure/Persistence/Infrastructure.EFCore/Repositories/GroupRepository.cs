@@ -12,53 +12,63 @@ public class GroupRepository : IGroupRepository
         _dbContext = dbContext;
     }
 
-    public Group Create(Group entity)
+    public async Task<Group> CreateAsync(Group entity, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var result = await _dbContext.Groups.AddAsync(entity);
+        await _dbContext.SaveChangesAsync();
+        return result.Entity;
     }
 
-    public Group CreateAsync(Group entity)
+    public async Task<bool> DeleteAsync(long id, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var findEntity = await GetAsync(id, cancellationToken);
+
+        if (findEntity != null)
+        {
+            _dbContext.Groups.Remove(findEntity);
+            await _dbContext.SaveChangesAsync();
+            return true;
+        }
+        return false;
     }
 
-    public Group Delete(Group entity)
+    public async Task<IEnumerable<Group>> FindAllAsync(IEnumerable<long> ids, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
-    }
-
-    public Group DeleteAsync(Group entity)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<IEnumerable<Group>> FindAllAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken = default)
-    {
-        throw new NotImplementedException();
+        var users = await _dbContext.Groups.Where(group => ids.Contains(group.Id)).ToListAsync(cancellationToken);
+        return users;
     }
 
     public async Task<IEnumerable<Group>> GetAllAsync(CancellationToken cancellationToken = default)
     {
-        return await _dbContext.Groups.OrderBy(_ => _.Name).ToListAsync();
+        return await _dbContext.Groups.OrderBy(_ => _.Id).ToListAsync();
     }
 
-    public Task<Group> GetAsync(Guid id, CancellationToken cancellationToken = default)
+    public async Task<Group> GetAsync(long id, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var group = await _dbContext.Groups.FindAsync(new object[] { id }, cancellationToken);
+        if (group == null)
+            throw new ArgumentNullException(nameof(Group));
+        return group;
     }
 
-    public Task<IEnumerable<Group>> GetUserJoinedGroups(Guid userId)
+    public async Task<IEnumerable<Group>> GetGroupsByUserIdAsync(long userId, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        return await _dbContext.MemberUserGroups
+            .Where(_ => _.UserId == userId)
+            .Include(_ => _.Group)
+            .Select(_ => _.Group)
+            .OrderBy(g => g.Id).ToListAsync();
     }
 
-    public Group Update(Group entity)
+    public async Task<Group> UpdateAsync(Group entity, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
-    }
+        var findEntity = await this.GetAsync(entity.Id, cancellationToken);
+        if (findEntity == null)
+            throw new NullReferenceException(nameof(entity));
 
-    public Group UpdateAsync(Group entity)
-    {
-        throw new NotImplementedException();
+        findEntity.Name = entity.Name;
+        var result = _dbContext.Groups.Update(findEntity).Entity;
+        await _dbContext.SaveChangesAsync();
+        return result;
     }
 }
