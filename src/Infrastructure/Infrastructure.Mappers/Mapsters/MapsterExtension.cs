@@ -17,7 +17,8 @@ public static class MapsterExtension
     {
         var config = new TypeAdapterConfig();
         config.AddUser()
-              .AddGroup();
+              .AddGroup()
+              .AddActivities();
         return new MapsterMapper.Mapper(config);
     }
 }

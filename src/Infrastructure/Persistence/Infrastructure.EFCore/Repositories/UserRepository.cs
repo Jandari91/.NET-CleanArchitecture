@@ -40,7 +40,7 @@ public class UserRepository : IUserRepository
 
     public async Task<IEnumerable<User>> GetAllAsync(CancellationToken cancellationToken = default)
     {
-        return await _dbContext.Users.OrderBy(_ => _.Id).ToListAsync();
+        return await _dbContext.Users.OrderBy(_=> _.Id).ToListAsync();
     }
 
     public async Task<User> GetAsync(long id, CancellationToken cancellationToken = default)

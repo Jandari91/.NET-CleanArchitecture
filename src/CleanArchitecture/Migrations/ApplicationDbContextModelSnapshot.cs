@@ -3,7 +3,7 @@ using Infrastructure.EFCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Oracle.EntityFrameworkCore.Metadata;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -18,22 +18,167 @@ namespace CleanArchitecture.Migrations
             modelBuilder
                 .HasDefaultSchema("DM80")
                 .HasAnnotation("ProductVersion", "7.0.8")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            OracleModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("Domain.Entities.ActivityAggregate.Activity", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("GroupId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GroupId");
+
+                    b.ToTable("Activities", "DM80");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            GroupId = 1L,
+                            Title = "체육대회"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            GroupId = 2L,
+                            Title = "체육대회"
+                        });
+                });
+
+            modelBuilder.Entity("Domain.Entities.ActivityAggregate.Attendant", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("ActivityId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ActivityId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Attendees", "DM80");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            ActivityId = 1L,
+                            UserId = 1L
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            ActivityId = 1L,
+                            UserId = 2L
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            ActivityId = 2L,
+                            UserId = 1L
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            ActivityId = 2L,
+                            UserId = 3L
+                        },
+                        new
+                        {
+                            Id = 5L,
+                            ActivityId = 2L,
+                            UserId = 4L
+                        },
+                        new
+                        {
+                            Id = 6L,
+                            ActivityId = 2L,
+                            UserId = 5L
+                        });
+                });
+
+            modelBuilder.Entity("Domain.Entities.ActivityAggregate.Expense", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("ActivityId")
+                        .HasColumnType("bigint");
+
+                    b.Property<float>("Payment")
+                        .HasColumnType("real");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ActivityId");
+
+                    b.ToTable("Expenses", "DM80");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            ActivityId = 1L,
+                            Payment = 10000f
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            ActivityId = 1L,
+                            Payment = 10000f
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            ActivityId = 2L,
+                            Payment = 20000f
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            ActivityId = 2L,
+                            Payment = 20000f
+                        });
+                });
 
             modelBuilder.Entity("Domain.Entities.Group", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("NUMBER(19)");
+                        .HasColumnType("bigint");
 
-                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(30)
-                        .HasColumnType("NVARCHAR2(30)");
+                        .HasColumnType("character varying(30)");
 
                     b.HasKey("Id");
 
@@ -55,13 +200,13 @@ namespace CleanArchitecture.Migrations
             modelBuilder.Entity("Domain.Entities.MemberUserGroup", b =>
                 {
                     b.Property<long>("UserId")
-                        .HasColumnType("NUMBER(19)");
+                        .HasColumnType("bigint");
 
                     b.Property<long>("GroupId")
-                        .HasColumnType("NUMBER(19)");
+                        .HasColumnType("bigint");
 
                     b.Property<long>("Id")
-                        .HasColumnType("NUMBER(19)");
+                        .HasColumnType("bigint");
 
                     b.HasKey("UserId", "GroupId");
 
@@ -108,24 +253,24 @@ namespace CleanArchitecture.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("NUMBER(19)");
+                        .HasColumnType("bigint");
 
-                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(30)
-                        .HasColumnType("NVARCHAR2(30)");
+                        .HasColumnType("character varying(30)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(30)
-                        .HasColumnType("NVARCHAR2(30)");
+                        .HasColumnType("character varying(30)");
 
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasMaxLength(15)
-                        .HasColumnType("NVARCHAR2(15)");
+                        .HasColumnType("character varying(15)");
 
                     b.HasKey("Id");
 
@@ -169,6 +314,47 @@ namespace CleanArchitecture.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Domain.Entities.ActivityAggregate.Activity", b =>
+                {
+                    b.HasOne("Domain.Entities.Group", "Group")
+                        .WithMany()
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Group");
+                });
+
+            modelBuilder.Entity("Domain.Entities.ActivityAggregate.Attendant", b =>
+                {
+                    b.HasOne("Domain.Entities.ActivityAggregate.Activity", "Activity")
+                        .WithMany("Attendees")
+                        .HasForeignKey("ActivityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Activity");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Domain.Entities.ActivityAggregate.Expense", b =>
+                {
+                    b.HasOne("Domain.Entities.ActivityAggregate.Activity", "Activity")
+                        .WithMany("Expenses")
+                        .HasForeignKey("ActivityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Activity");
+                });
+
             modelBuilder.Entity("Domain.Entities.MemberUserGroup", b =>
                 {
                     b.HasOne("Domain.Entities.Group", "Group")
@@ -186,6 +372,13 @@ namespace CleanArchitecture.Migrations
                     b.Navigation("Group");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Domain.Entities.ActivityAggregate.Activity", b =>
+                {
+                    b.Navigation("Attendees");
+
+                    b.Navigation("Expenses");
                 });
 #pragma warning restore 612, 618
         }

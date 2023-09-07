@@ -1,5 +1,4 @@
 using Api.Users;
-using Api.Users;
 using Application.Mappers;
 using CleanArchitecture.IntegratedTest.Factories;
 using Common;
@@ -114,7 +113,7 @@ public class UserControllerTests : TestBase<PostgresFactory<Program, Application
         // Arrange
         var client = new UsersGrpc.UsersGrpcClient(_channel);
 
-        var newUser = new User() { Id = 6, Name = "CreateUser", Password = "password", Email = "new@gmail.com" };
+        var newUser = new User() { Name = "CreateUser", Password = "password", Email = "new@gmail.com" };
 
         // Act
         var response = await client.CreateUserAsync(new CreateUserRequest { User = newUser });
@@ -129,7 +128,7 @@ public class UserControllerTests : TestBase<PostgresFactory<Program, Application
     {
         // Arrange
         var client = new UsersGrpc.UsersGrpcClient(_channel);
-
+        
         // Act
         var response = await client.DeleteUserAsync(new DeleteUserRequest { UserId = 6 });
         var result = response.Result;
@@ -146,7 +145,9 @@ public class UserControllerTests : TestBase<PostgresFactory<Program, Application
         var updateUser = new User
         {
             Id = 1,
-            Name = "UpdateUser"
+            Name = "UpdateUser",
+            Email="UpdateEmail",
+            Password = "UpdatePassword",
         };
 
         // Act

@@ -1,6 +1,4 @@
 using CleanArchitecture.Extensions;
-using CleanArchitecture.Services;
-using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -10,7 +8,7 @@ builder.Services.AddMapper();
 builder.Services.AddRepositories();;
 builder.Services.AddEFCore(configuration);
 builder.Services.AddMediatR();
-
+builder.Services.AddValidator();
 
 var app = builder.Build();
 

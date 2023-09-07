@@ -89,7 +89,6 @@ public class GroupControllerTests : TestBase<PostgresFactory<Program, Applicatio
         var client = new GroupsGrpc.GroupsGrpcClient(_channel);
         var newGroup = new Group
         {
-            Id = 3,
             Name = "CreateGroup"
         };
 

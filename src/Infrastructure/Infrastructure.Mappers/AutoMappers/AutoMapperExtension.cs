@@ -18,7 +18,8 @@ public static class AutoMapperExtension
         return new AutoMapper.MapperConfiguration(cfg =>
         {
             cfg.AddUser()
-                .AddGroup();
+               .AddGroup()
+               .AddActivities();
         });
     }
 }

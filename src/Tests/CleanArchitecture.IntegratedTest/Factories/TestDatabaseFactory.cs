@@ -19,7 +19,7 @@ public class TestDatabaseFactory<TProgram, TDbContext> :
     public IMapper Mapper { get; set; } = default!;
 
     public TestDatabaseFactory(IContainer container)
-    {
+    { 
         Container = container;
     }
 

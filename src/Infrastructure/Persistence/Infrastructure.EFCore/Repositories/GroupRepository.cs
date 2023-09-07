@@ -23,7 +23,7 @@ public class GroupRepository : IGroupRepository
     {
         var findEntity = await GetAsync(id, cancellationToken);
 
-        if (findEntity != null)
+        if(findEntity != null)
         {
             _dbContext.Groups.Remove(findEntity);
             await _dbContext.SaveChangesAsync();

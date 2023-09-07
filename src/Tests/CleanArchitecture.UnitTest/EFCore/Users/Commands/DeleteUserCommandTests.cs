@@ -1,14 +1,12 @@
-﻿using CleanArchitecture.Core.Application.Features.Groups.Commands;
+﻿using Application.Mappers;
+using CleanArchitecture.Core.Application.Features.Users.Commands;
+using CleanArchitecture.UnitTest.EFCore.Users.Mocks;
 using CleanArchitecture.UnitTest.Factories;
 using Common;
+using FluentAssertions;
 using Infrastructure.EFCore.Repositories;
 using Moq;
-using DtoUser = Api.Users.User;
 using Xunit;
-using Application.Mappers;
-using CleanArchitecture.UnitTest.EFCore.Users.Mocks;
-using CleanArchitecture.Core.Application.Features.Users.Commands;
-using FluentAssertions;
 
 namespace CleanArchitecture.UnitTest.EFCore.Users.Commands;
 
@@ -29,7 +27,7 @@ public class DeleteUserCommandTests : TestBase<TestFactory<Program>>
         var handler = new DeleteUserCommandHandler(userRepository, _mapper);
 
         // Act
-        var result = await handler.Handle(new DeleteUserCommand(userId: 1));
+        var result = await handler.Handle(new DeleteUserCommand(userId:1));
 
         // Assert
         result.Should().BeTrue();

@@ -4,7 +4,10 @@ using CleanArchitecture.UnitTest.EFCore.Users.Mocks;
 using CleanArchitecture.UnitTest.Factories;
 using Common;
 using FluentAssertions;
+using FluentValidation.TestHelper;
 using Infrastructure.EFCore.Repositories;
+using MediatR;
+using Moq;
 using Xunit;
 
 namespace CleanArchitecture.UnitTest.EFCore.Users.Queries;
@@ -46,5 +49,19 @@ public class GetAllUsersByGroupIdQueryTests : TestBase<TestFactory<Program>>
                 third.Name.Should().Be("장동계");
                 third.Email.Should().Be("jang@gmail.com");
             });
+    }
+
+    [Fact]
+    public void Should_Be_Expect_Exception_By_GreaterThanValidator()
+    {
+        // Arrange
+        var validator = new GetAllUsersByGroupIdValidator();
+        var query = new GetAllUsersByGroupIdQuery(0);
+
+        // Act
+        var result = validator.TestValidate(query);
+
+        // Assert
+        result.ShouldHaveValidationErrorFor(query => query.GroupId).WithErrorCode("GreaterThanValidator");
     }
 }

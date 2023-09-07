@@ -8,7 +8,7 @@ using Testcontainers.PostgreSql;
 
 namespace CleanArchitecture.IntegratedTest.Factories;
 
-public class PostgresFactory<TProgram, TDbContext> : TestDatabaseFactory<TProgram, TDbContext> where TProgram : class where TDbContext : DbContext
+public class PostgresFactory<TProgram, TDbContext> :TestDatabaseFactory<TProgram, TDbContext> where TProgram : class where TDbContext : DbContext
 {
     public PostgresFactory() : base(new PostgreSqlBuilder().Build()) { }
 

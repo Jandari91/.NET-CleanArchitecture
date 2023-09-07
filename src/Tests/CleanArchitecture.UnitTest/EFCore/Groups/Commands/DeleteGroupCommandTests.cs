@@ -6,13 +6,7 @@ using Common;
 using FluentAssertions;
 using Infrastructure.EFCore.Repositories;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
-using DtoGroup = Api.Groups.Group;
 
 namespace CleanArchitecture.UnitTest.EFCore.Groups.Commands;
 
@@ -33,7 +27,7 @@ public class DeleteGroupCommandTests : TestBase<TestFactory<Program>>
         var handler = new DeleteGroupCommandHandler(groupRepository, _mapper);
 
         // Act
-        var result = await handler.Handle(new DeleteGroupCommand(groupId: 2));
+        var result = await handler.Handle(new DeleteGroupCommand(groupId:2));
 
         // Assert
         result.Should().BeTrue();
