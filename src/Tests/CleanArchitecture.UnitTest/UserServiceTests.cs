@@ -1,5 +1,6 @@
 using Api.Users;
 using Application.Mappers;
+using CleanArchitecture.UnitTest.Factories;
 using Common;
 using FluentAssertions;
 using Grpc.Net.Client;
@@ -9,11 +10,11 @@ using EntityUser = Domain.Entities.User;
 
 namespace CleanArchitecture.UnitTest;
 
-public class UserServiceTests : TestBase
+public class UserServiceTests : TestBase<TestFactory<Program>>
 {
     private readonly GrpcChannel _channel;
     private readonly IMapper _mapper;
-    public UserServiceTests(TestFactory<Program> factory) : base(factory)
+    public UserServiceTests(TestFactory<Program> factory)
     {
         _channel = factory.Channel;
         _mapper = factory.Mapper;

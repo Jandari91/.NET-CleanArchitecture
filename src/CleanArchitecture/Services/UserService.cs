@@ -1,19 +1,24 @@
-﻿using Application;
-using Domain.Entities;
+﻿using Application.Mappers;
+using Application.Persistences;
+using CleanArchitecture.Core.Application;
+using DtoUser = Api.Users.User;
 
 namespace CleanArchitecture.Services;
 
 public class UserService : IUserService
 {
-    public async Task<IEnumerable<User>> GetUsers()
+    private readonly IUserRepository _userRepository;
+    private readonly IMapper _mapper;
+
+    public UserService(IUserRepository userRepository, IMapper mapper)
     {
-        return await Task.FromResult(new List<User>()
-        {
-            new User() { Id=1, Name = "박영석", Password = "password", Email ="bak@gmail.com"},
-            new User() { Id=2, Name = "이건우", Password = "password", Email ="lee@gmail.com"},
-            new User() { Id=3, Name = "조범희", Password = "password", Email ="jo@gmail.com"},
-            new User() { Id=4, Name = "안성윤", Password = "password", Email ="an@gmail.com"},
-            new User() { Id=5, Name = "장동계", Password = "password", Email ="jang@gmail.com"},
-        });
+        _userRepository = userRepository;
+        _mapper = mapper;
+    }
+    public async Task<IEnumerable<DtoUser>> GetAllUsers(CancellationToken cancellationToken=default)
+    {
+        var entities = await _userRepository.GetAllAsync(cancellationToken);
+        var dtos = _mapper.Map<IEnumerable<DtoUser>>(entities);
+        return dtos;
     }
 }

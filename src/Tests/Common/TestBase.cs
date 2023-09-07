@@ -1,14 +1,5 @@
-﻿using Microsoft.VisualStudio.TestPlatform.TestHost;
-using Xunit;
+﻿using Xunit;
 
 namespace Common;
 
-public class TestBase : IClassFixture<TestFactory<Program>>
-{
-    public readonly TestFactory<Program> Factory;
-
-    public TestBase(TestFactory<Program> factory)
-    {
-        Factory = factory;
-    }
-}
+public abstract class TestBase<TFactory> : IClassFixture<TFactory> where TFactory : class, new() { }
