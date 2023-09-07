@@ -1,28 +1,26 @@
-## Å°¿öµå
-1. gRPC
-2. Dependency Injection
-3. Unit Test
+ï»¿## í‚¤ì›Œë“œ
+* CleanArchitecture, DI, Mapper
+* WebApplicationFactory.ConfigureWebHost()
+* Xunit -> IAsyncLifetime
 
-## ÆÐÅ°Áö
-1. xUnit
-2. Fluent Assertion
+## ì¶”ê°€ì‚¬í•­
+* ë§Œì•½ ì¶”í›„ Mapperë¥¼ ì‚¬ìš©í•˜ê²Œ ëœë‹¤ë©´ AutoMapperë¥¼ ì‚¬ìš© í•  ì˜ˆì •ìž…ë‹ˆë‹¤.
+ 
+## Mapper
 
-
-#### API Service
-
-Client³ª ´Ù¸¥ Service°¡ Database¿¡ Á÷Á¢ Á¢±ÙÇÏ¿© µ¥ÀÌÅÍ¸¦ ÇÚµé¸µÇÏ´Â °ÍÀº ´ë´ÜÈ÷ À§ÇèÇÕ´Ï´Ù.
-Áö±Ý ´ë´Ù¼öÀÇ ÇÁ·ÎÁ§Æ®¿¡¼­ Client¿¡ Database Á¢¼Ó Á¤º¸¸¦ ÀÔ·ÂÇØ¾ß »ç¿ë ÇÒ ¼ö ÀÖ½À´Ï´Ù.
-ÇÏÁö¸¸ API Service(Backend)¸¦ »ç¿ëÇÏ¸é, Client³ª ´Ù¸¥ Service´Â Database Á¢¼Ó Á¤º¸¸¦ ¸ô¶óµµ µÇ¸ç, ¿äÃ»¿¡ ´ëÇØ API Service°¡ °ËÁõ ÇÒ ¼ö ÀÖ½À´Ï´Ù.
-±×·¸°Ô µÇ¸é DatabaseÀÇ ºÎÇÏ°¡ Àû¾îÁö°Ô µË´Ï´Ù.
-
-RESTful API¸¦ ¸¹ÀÌ »ç¿ëÇÏÁö¸¸ ºÒÆ¯Á¤ ´Ù¼ö¿¡°Ô API¸¦ Á¦°øÇÏÁö ¾Ê±â ¶§¹®¿¡ ¼º´É Ãø¸é¿¡¼­ À¯¸®ÇÑ gRPC¸¦ ¼±ÅÃÇß½À´Ï´Ù.
-
-#### Unit Test
-ÇöÀç »ç³»¿¡¼­ Client³ª ¼­ºñ½º¸¦ Å×½ºÆ® ÇÏ±â À§ÇØ¼­ Client¸¦ ½ÇÇàÇÏ°Å³ª ¼­ºñ½º¸¦ ½ÇÇàÇÏ°í ÆÄÀÏÀ» Æ¯Á¤ Æú´õ¿¡ ³Ö°Å³ª ÇÏ´Â Çàµ¿À» ÇÏ°í ÀÖ½À´Ï´Ù.
-ÀÌ´Â ±²ÀåÈ÷ ¼Ò¸ðÀûÀÎ Çàµ¿À¸·Î ÀÚ½ÅÀÌ °³¹ßÇÏ´Â ºÎºÐ¿¡ ´ëÇØ¼­¸¸ µð¹ö±ëÀÌ °¡´ÉÇØ¾ß ÇÕ´Ï´Ù.
-¶ÇÇÑ ¹èÆ÷ ÇÒ ¶§ ºÒ¾È¿¡ ¶³¾î¾ß ÇÏÁö¸¸ Å×½ºÆ®°¡ ¸¹ÀÌ ÀÖ´Ù¸é, ºÎ´ãÀ» ´ú ¼ö ÀÖ°í, »çÀÌµå ÀÌÆåÆ®°¡ ¹ß»ýÇÏ´Â ºÎºÐÀ» ºü¸£°Ô Ã£À» ¼ö ÀÖ½À´Ï´Ù.
-
-gRPC Controller ºÎºÐÀ» ¼­ºñ½º ½ÇÇà ¾øÀÌ µð¹ö±ëÀ» ÇÏ´Â ¹æ¹ý¿¡ ´ëÇØ ¾Ë¾Æº¾´Ï´Ù.
+ë°±ì—”ë“œ ê°œë…ì´ ë“¤ì–´ê°€ê²Œ ë˜ë©´ API Serviceì™€ Clientë‚˜ íƒ€ ì„œë¹„ìŠ¤ëŠ” DTOë¼ëŠ” Typeì„ ê°€ì§€ê³  ì„œë¡œ ì£¼ê³  ë°›ê²Œ ë©ë‹ˆë‹¤.
+ì´ë•Œ DTOì™€ Entity, Modelë“± ê³„ì† ë³€í™˜í•˜ëŠ” ë¡œì§ì´ ë“¤ì–´ê°€ê²Œ ë˜ë©´ ë„ë©”ì¸ ë¡œì§ì´ í›¼ì†ë˜ê²Œ ë©ë‹ˆë‹¤.
+ë„ë©”ì¸ ë¡œì§ì„ ëª…í™•ížˆ ì‚¬ìš©í•˜ê¸° ìœ„í•´ì„œ ë„ì™€ì£¼ëŠ” íŒ¨í‚¤ì§€ê°€ Mapperê°€ ìžˆìŠµë‹ˆë‹¤.
 
 
+## WebApplicationFactory
 
+ì„œë¹„ìŠ¤ì˜ íŠ¹ì • ë¶€ë¶„ì„ í…ŒìŠ¤íŠ¸í•˜ê¸° ìœ„í•´ì„œëŠ” í•„ìš”í•œ ë¶€ë¶„ì´ ë§ŽìŠµë‹ˆë‹¤.
+ì´ë•Œ ê¸°ë³¸ì ì¸ DI ë¶€ë¶„ì€ ê·¸ëŒ€ë¡œ ì‚¬ìš©í•˜ë©´ì„œ í•„ìš”í•œ DIë§Œ ìˆ˜ì •í•´ì„œ í…ŒìŠ¤íŠ¸ ì½”ë“œë¥¼ ì‹¤í–‰ ì‹œí‚¬ ìˆ˜ ìžˆê²Œ ë„ì™€ì£¼ëŠ” íŒ¨í‚¤ì§€ìž…ë‹ˆë‹¤.
+
+## ì•„í‚¤í…ì²˜
+
+ê³„ì¸µí˜• ì•„í‚¤í…ì²˜, í´ë¦° ì•„í‚¤í…ì²˜, í—¥ì‚¬ê³ ë‚  ì•„í‚¤í…ì²˜ ë“± ì•„í‚¤í…ì²˜ê°€ ì¶”ê°€í•˜ëŠ” ë°©í–¥ì„±ì€ ëª¨ë‘ ê°™ìŠµë‹ˆë‹¤.
+íŠ¹ì • ì‹œìŠ¤í…œ, íŒ¨í‚¤ì§€, í´ëž˜ìŠ¤ ë“±ì— ì˜ì¡´ì„±ì„ ê°€ì§€ì§€ ì•Šë„ë¡ í•˜ê¸° ìœ„í•¨ìž…ë‹ˆë‹¤.
+í˜„ìž¬ IMapperë¥¼ í†µí•´ AutoMapperì™€ Mapsterë¥¼ DI ë§Œìœ¼ë¡œ ë³€ê²½ì´ ê°€ëŠ¥í•©ë‹ˆë‹¤.
+ì´ëŠ” íŠ¹ì • íŒ¨í‚¤ì§€ì— ì˜ì¡´ì„±ì„ ê°€ì§€ì§€ ì•ŠëŠ” ê²ƒì„ ëœ»í•©ë‹ˆë‹¤.

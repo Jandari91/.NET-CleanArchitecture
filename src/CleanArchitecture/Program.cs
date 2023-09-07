@@ -1,29 +1,12 @@
-using Application;
+using CleanArchitecture.Extensions;
 using CleanArchitecture.Services;
-using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Additional configuration is required to successfully run gRPC on macOS.
-// For instructions on how to configure Kestrel and gRPC clients on macOS, visit https://go.microsoft.com/fwlink/?linkid=2099682
-
-// Add services to the container.
 builder.Services.AddGrpc();
-builder.Services.AddTransient<IUserService, UserService>();
-builder.Services.AddGrpcSwagger();
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1",
-        new OpenApiInfo { Title = "gRPC transcoding", Version = "v1" });
-});
-
+builder.Services.AddMapper();
+builder.Services.AddServices();
 var app = builder.Build();
-
-app.UseSwagger();
-app.UseSwaggerUI(c =>
-{
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-});
 
 // Configure the HTTP request pipeline.
 app.MapGrpcService<UserController>();
