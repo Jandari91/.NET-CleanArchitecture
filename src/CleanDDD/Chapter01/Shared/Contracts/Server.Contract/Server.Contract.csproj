@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Grpc.Tools" Version="2.72.0" PrivateAssets="All" />
+		<PackageReference Include="Google.Api.CommonProtos" Version="2.17.0" GeneratePathProperty="true" />
+		<PackageReference Include="Grpc.Core.Api" Version="2.71.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Protobuf Include="..\Protos\**\*.proto"
+              GrpcServices="Server"
+              AdditionalImportDirs="$(PkgGoogle_Api_CommonProtos)\content\protos" />
+	</ItemGroup>
+</Project>
