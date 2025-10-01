@@ -1,0 +1,100 @@
+﻿<ui:FluentWindow
+    x:Class="Client.UI.Views.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:employee="clr-namespace:Client.UI.Views.Employee"
+    xmlns:local="clr-namespace:Client.UI.Views"
+    xmlns:markup="clr-namespace:Client.UI.Abstractions.Markups"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:vm="clr-namespace:Client.Presentation.ViewModels;assembly=Client.Presentation"
+    Title="MainWindow"
+    Width="1450"
+    Height="802"
+    MinWidth="900"
+    d:DataContext="{d:DesignInstance {x:Type vm:MainViewModel}}"
+    DataContext="{markup:DependencySource Type=vm:MainViewModel}"
+    ExtendsContentIntoTitleBar="True"
+    WindowCornerPreference="Default"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <Grid>
+        <ui:NavigationView
+            x:Name="NavigationView"
+            EnableDebugMessages="True"
+            FrameMargin="0"
+            IsBackButtonVisible="Visible"
+            IsPaneToggleVisible="True"
+            OpenPaneLength="250"
+            TitleBar="{Binding ElementName=TitleBar, Mode=OneWay}"
+            Transition="FadeInWithSlide">
+            <ui:NavigationView.MenuItems>
+                <ui:NavigationViewItem
+                    Content="Employee"
+                    Icon="{ui:SymbolIcon ShieldCheckmark48}"
+                    IsActive="True"
+                    TargetPageType="{x:Type employee:EmployeeView}" />
+
+            </ui:NavigationView.MenuItems>
+
+            <ui:NavigationView.AutoSuggestBox>
+                <ui:AutoSuggestBox
+                    x:Name="AutoSuggestBox"
+                    Margin="0,0,0,8"
+                    PlaceholderText="Search">
+                    <ui:AutoSuggestBox.Icon>
+                        <ui:IconSourceElement>
+                            <ui:SymbolIconSource Symbol="Search24" />
+                        </ui:IconSourceElement>
+                    </ui:AutoSuggestBox.Icon>
+                </ui:AutoSuggestBox>
+            </ui:NavigationView.AutoSuggestBox>
+
+            <ui:NavigationView.ContentOverlay>
+                <Grid>
+                    <Grid
+                        x:Name="LoadingPanel"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Panel.ZIndex="999"
+                        Background="#80000000"
+                        Visibility="Collapsed">
+                        <StackPanel
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Background="Transparent">
+                            <ProgressBar
+                                Width="200"
+                                Height="20"
+                                Margin="0,0,0,10"
+                                IsIndeterminate="True" />
+                            <TextBlock
+                                x:Name="LoadingMessage"
+                                HorizontalAlignment="Center"
+                                FontWeight="Bold"
+                                Foreground="White" />
+                        </StackPanel>
+                    </Grid>
+                    <ui:SnackbarPresenter x:Name="snackPresenter" />
+                </Grid>
+            </ui:NavigationView.ContentOverlay>
+        </ui:NavigationView>
+
+        <ui:TitleBar
+            x:Name="TitleBar"
+            Title="Sentry"
+            Grid.Row="0"
+            CloseWindowByDoubleClickOnIcon="True">
+            <ui:TitleBar.Icon>
+                <ui:ImageIcon x:Name="titleIcon" />
+            </ui:TitleBar.Icon>
+            <ui:TitleBar.TrailingContent>
+                <StackPanel
+                    Margin="0,4,8,0"
+                    VerticalAlignment="Top"
+                    Orientation="Horizontal" />
+            </ui:TitleBar.TrailingContent>
+        </ui:TitleBar>
+    </Grid>
+</ui:FluentWindow>
