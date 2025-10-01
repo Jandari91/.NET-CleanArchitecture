@@ -14,8 +14,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Shared\Contracts\Server.Contract\Server.Contract.csproj" />
-    <ProjectReference Include="..\..\Core\Api.Application\Api.Application.csproj" />
-    <ProjectReference Include="..\..\Infrastructure\Api.Infrastructure\Api.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

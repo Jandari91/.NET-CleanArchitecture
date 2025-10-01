@@ -1,7 +1,7 @@
 ﻿using Api.Application.Features.Employees.Models.Dtos;
 using Api.Domain.Repositories;
-using Kernel.Results;
 using Shared.Application.Abstractions;
+using Shared.Application.Common;
 
 namespace Api.Application.Features.Employees.Queries.GetEmployees;
 
