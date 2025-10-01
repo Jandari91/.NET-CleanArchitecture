@@ -4,5 +4,5 @@ namespace Shared.Adapter.Messaging;
 
 public interface IQueryBus
 {
-    Task<TResponse> SendAsync<TResponse>(IQuery<TResponse> query, CancellationToken ct);
+    Task<TResponse> SendAsync<TResponse>(IQuery<TResponse> query, CancellationToken ct = default);
 }

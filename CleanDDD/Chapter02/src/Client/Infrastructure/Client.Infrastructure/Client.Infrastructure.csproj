@@ -6,4 +6,15 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Shared\Contracts\Client.Contract\Client.Contract.csproj" />
+    <ProjectReference Include="..\..\..\Shared\Shared.Adapter.Messaging\Shared.Adapter.Messaging.csproj" />
+    <ProjectReference Include="..\..\Core\Client.Application\Client.Application.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Grpc.Net.Client" Version="2.64.0" />
+    <PackageReference Include="WolverineFx" Version="4.12.2" />
+  </ItemGroup>
+
 </Project>

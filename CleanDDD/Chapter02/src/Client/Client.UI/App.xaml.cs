@@ -1,4 +1,5 @@
-﻿using Client.Application.Abstractions.Registrations;
+﻿using Api.Infrastructure.Abstractions.Registrations;
+using Client.Application.Abstractions.Registrations;
 using Client.Presentation.Abstractions.Registrations;
 using Client.UI.Abstractions.Markups;
 using Client.UI.Abstractions.Registrations;
@@ -6,6 +7,7 @@ using Client.UI.Components.Molecules;
 using Client.UI.Views;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using Client.Infrastructure.Abstractions.Registrations;
 using System.Windows;
 
 namespace Client.UI;
@@ -19,13 +21,16 @@ public partial class App : System.Windows.Application
         .ConfigureServices((context, services) =>
         {
             var configuration = new ConfigurationBuilder()
-            //.AddJsonFile("appsettings.json", false, true)
+            .AddJsonFile("appsettings.json", false, true)
             .AddEnvironmentVariables()
             .Build();
 
             services.RegisterWpfUI()
                     .RegisterMediator()
                     .RegisterViewModels()
+                    .RegisterGateway()
+                    .RegisterWolverine()
+                    .RegisterGrpc(configuration)
                     .RegisterComponent();
         }).Build();
 

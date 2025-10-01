@@ -8,7 +8,7 @@ service EmployeeService {
   rpc GetEmployee (GetEmployeeRequest) returns (GetEmployeeResponse)
   {
       option (google.api.http) = {
-        get: "/v1/employees/{employee_id}"
+        get: "/v1/employees/{id}"
       };
   }
   rpc GetEmployees (GetEmployeesRequest) returns (GetEmployeesResponse)
@@ -29,7 +29,7 @@ service EmployeeService {
 }
 
 // Queries
-message GetEmployeeRequest { string employee_id = 1; }
+message GetEmployeeRequest { string id = 1; }
 message GetEmployeeResponse { Employee employee = 1; }
 
 message GetEmployeesRequest { }
@@ -40,7 +40,7 @@ message GetEmployeeByEmailResponse { Employee employee = 1; }
 
 // View
 message Employee {
-  string employee_id = 1;
+  string id = 1;
   string name    = 2;
   string email   = 3;
   bool   is_active = 4;

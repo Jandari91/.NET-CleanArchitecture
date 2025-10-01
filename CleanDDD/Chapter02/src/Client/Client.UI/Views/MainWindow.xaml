@@ -10,9 +10,10 @@
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:vm="clr-namespace:Client.Presentation.ViewModels;assembly=Client.Presentation"
     Title="MainWindow"
-    Width="1450"
-    Height="802"
+    Width="1100"
+    Height="650"
     MinWidth="900"
+    MinHeight="450"
     d:DataContext="{d:DesignInstance {x:Type vm:MainViewModel}}"
     DataContext="{markup:DependencySource Type=vm:MainViewModel}"
     ExtendsContentIntoTitleBar="True"
@@ -50,35 +51,6 @@
                     </ui:AutoSuggestBox.Icon>
                 </ui:AutoSuggestBox>
             </ui:NavigationView.AutoSuggestBox>
-
-            <ui:NavigationView.ContentOverlay>
-                <Grid>
-                    <Grid
-                        x:Name="LoadingPanel"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch"
-                        Panel.ZIndex="999"
-                        Background="#80000000"
-                        Visibility="Collapsed">
-                        <StackPanel
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Background="Transparent">
-                            <ProgressBar
-                                Width="200"
-                                Height="20"
-                                Margin="0,0,0,10"
-                                IsIndeterminate="True" />
-                            <TextBlock
-                                x:Name="LoadingMessage"
-                                HorizontalAlignment="Center"
-                                FontWeight="Bold"
-                                Foreground="White" />
-                        </StackPanel>
-                    </Grid>
-                    <ui:SnackbarPresenter x:Name="snackPresenter" />
-                </Grid>
-            </ui:NavigationView.ContentOverlay>
         </ui:NavigationView>
 
         <ui:TitleBar

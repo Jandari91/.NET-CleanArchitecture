@@ -22,7 +22,7 @@ public class EmployeeController : EmployeeService.EmployeeServiceBase
         var rsp = new GetEmployeesResponse();
         rsp.Items.AddRange(res.Value.Select(u => new Employee
         {
-            EmployeeId = u.EmployeeId,
+            Id = u.Id,
             Name = u.Name,
             Email = u.Email,
             IsActive = u.IsActive
