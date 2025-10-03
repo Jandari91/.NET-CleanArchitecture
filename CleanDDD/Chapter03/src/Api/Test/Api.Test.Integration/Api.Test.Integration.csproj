@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Shared\Contracts\Client.Contract\Client.Contract.csproj" Aliases="Client" />
+    <ProjectReference Include="..\..\..\Shared\Shared.Test\Shared.Test.csproj" />
     <ProjectReference Include="..\..\Api.Service\Api.Service\Api.Service.csproj" />
   </ItemGroup>
 

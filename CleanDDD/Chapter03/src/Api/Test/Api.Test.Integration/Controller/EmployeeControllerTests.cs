@@ -2,12 +2,13 @@
 
 using Api.Test.Integration.Infra;
 using Grpc.Net.Client;
-
+using static Shared.Test.Contracts.TestTypes;
 using ClientContracts = Client::CleanDDD.Contracts.Employees.v1;
 
 namespace Api.Test.Integration.Controller;
 
-public class EmployeeControllerTests : IClassFixture<TestWebFactory>
+[Trait(nameof(IntegrationTest), IntegrationTest.Controller)]
+public sealed class EmployeeControllerTests : IClassFixture<TestWebFactory>
 {
     private readonly TestWebFactory _factory;
 

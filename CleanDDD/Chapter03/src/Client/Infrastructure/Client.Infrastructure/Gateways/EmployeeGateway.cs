@@ -1,6 +1,7 @@
 ﻿using CleanDDD.Contracts.Employees.v1;
 using Client.Application.Abstractions.Ports;
 using Client.Application.Features.Employees.Models;
+using Grpc.Net.Client;
 using static CleanDDD.Contracts.Employees.v1.EmployeeService;
 
 namespace Client.Infrastructure.Gateways
@@ -9,9 +10,9 @@ namespace Client.Infrastructure.Gateways
     {
         private readonly EmployeeServiceClient _client;
 
-        public EmployeeGateway(EmployeeServiceClient client)
+        public EmployeeGateway(GrpcChannel channel)
         {
-            _client = client ?? throw new ArgumentNullException(nameof(client));
+            _client = new EmployeeServiceClient(channel);
         }
 
         public async Task<IReadOnlyList<EmployeeDto>> GetEmployeesAsync(CancellationToken ct)

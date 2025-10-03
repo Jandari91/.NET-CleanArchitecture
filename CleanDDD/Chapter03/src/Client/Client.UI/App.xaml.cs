@@ -1,5 +1,4 @@
-﻿using Api.Infrastructure.Abstractions.Registrations;
-using Client.Application.Abstractions.Registrations;
+﻿using Client.Infrastructure.Abstractions.Registrations;
 using Client.Presentation.Abstractions.Registrations;
 using Client.UI.Abstractions.Markups;
 using Client.UI.Abstractions.Registrations;
@@ -7,7 +6,6 @@ using Client.UI.Components.Molecules;
 using Client.UI.Views;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Client.Infrastructure.Abstractions.Registrations;
 using System.Windows;
 
 namespace Client.UI;
@@ -26,7 +24,6 @@ public partial class App : System.Windows.Application
             .Build();
 
             services.RegisterWpfUI()
-                    .RegisterMediator()
                     .RegisterViewModels()
                     .RegisterGateway()
                     .RegisterWolverine()

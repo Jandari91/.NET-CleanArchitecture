@@ -1,4 +1,6 @@
 ﻿using Api.Application.Features.Employees.Queries.GetEmployees;
+using Api.Infrastructure.Messaging.Wolverines;
+using Api.Infrastructure.Persistence.Repositories;
 using CleanDDD.Contracts.Employees.v1;
 using Grpc.Core;
 using Shared.Adapter.Messaging;

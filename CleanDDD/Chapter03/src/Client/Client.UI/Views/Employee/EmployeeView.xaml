@@ -3,7 +3,9 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:atoms="clr-namespace:Client.UI.Components.Atoms"
-    xmlns:converters="clr-namespace:Client.UI.Converters"
+    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:behavior="clr-namespace:Client.UI.Behaviors"
+    xmlns:converter="clr-namespace:Client.UI.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Client.UI.Views.Employee"
     xmlns:markup="clr-namespace:Client.UI.Abstractions.Markups"
@@ -16,26 +18,43 @@
     DataContext="{markup:DependencySource Type=vm:EmployeeViewModel}"
     mc:Ignorable="d">
     <UserControl.Resources>
-        <converters:BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
-        <converters:InverseBoolConverter x:Key="InverseBooleanConverter" />
+        <converter:InverseBoolConverter x:Key="InverseBooleanConverter" />
+        <converter:IsRunningMultiConverter x:Key="IsRunningMultiConverter" />
     </UserControl.Resources>
+    <b:Interaction.Behaviors>
+        <behavior:LoadedBehavior Command="{Binding LoadedCommand}" />
+    </b:Interaction.Behaviors>
     <Grid Margin="16">
 
         <atoms:Button
             HorizontalAlignment="Right"
             VerticalAlignment="Top"
             Panel.ZIndex="999"
-            Command="{Binding LoadEmployeesCommand}"
+            Command="{Binding RefreshEmployeesCommand}"
             Icon="{ui:SymbolIcon ArrowSync12}" />
-
-        <DataGrid
-            AutoGenerateColumns="False"
-            IsEnabled="{Binding LoadEmployeesCommand.IsRunning, Converter={StaticResource InverseBooleanConverter}}"
-            ItemsSource="{Binding Employees, Mode=TwoWay}">
-            <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Name}" Header="Name" />
-                <DataGridTextColumn Binding="{Binding Email}" Header="Email" />
-            </DataGrid.Columns>
-        </DataGrid>
+        <Grid>
+            <DataGrid
+                AutoGenerateColumns="False"
+                IsEnabled="{Binding RefreshEmployeesCommand.IsRunning, Converter={StaticResource InverseBooleanConverter}}"
+                IsReadOnly="True"
+                ItemsSource="{Binding Employees, Mode=TwoWay}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Name}" Header="Name" />
+                    <DataGridTextColumn Binding="{Binding Email}" Header="Email" />
+                </DataGrid.Columns>
+            </DataGrid>
+            <atoms:Spinner
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Panel.ZIndex="999"
+                Background="#80000000">
+                <atoms:Spinner.Visibility>
+                    <MultiBinding Converter="{StaticResource IsRunningMultiConverter}">
+                        <Binding Path="RefreshEmployeesCommand.IsRunning" />
+                        <Binding Path="LoadedCommand.IsRunning" />
+                    </MultiBinding>
+                </atoms:Spinner.Visibility>
+            </atoms:Spinner>
+        </Grid>
     </Grid>
 </UserControl>

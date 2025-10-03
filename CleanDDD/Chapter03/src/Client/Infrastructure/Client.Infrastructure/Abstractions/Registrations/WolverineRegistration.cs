@@ -5,14 +5,13 @@ using Wolverine;
 
 namespace Client.Infrastructure.Abstractions.Registrations;
 
-
 public static class WolverineRegistration
 {
     public static IServiceCollection RegisterWolverine(this IServiceCollection services)
     {
         services.AddWolverine(opts =>
         {
-            opts.Discovery.IncludeAssembly(typeof(Application.AssemblyReference).Assembly);
+            opts.Discovery.IncludeAssembly(typeof(Client.Application.AssemblyReference).Assembly);
         });
 
         services.AddScoped<Shared.Adapter.Messaging.ICommandBus, WolverineCommandAdapter>();

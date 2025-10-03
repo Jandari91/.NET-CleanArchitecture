@@ -34,7 +34,6 @@
                 <ui:NavigationViewItem
                     Content="Employee"
                     Icon="{ui:SymbolIcon ShieldCheckmark48}"
-                    IsActive="True"
                     TargetPageType="{x:Type employee:EmployeeView}" />
 
             </ui:NavigationView.MenuItems>

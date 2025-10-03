@@ -6,6 +6,7 @@ var configuration = builder.Configuration;
 
 builder.Services
     .RegisterGrpc()
+    .RegisterSwagger()
     .RegisterWolverine()
     .RegisterRepository();
 

@@ -2,7 +2,7 @@
 using Client.Infrastructure.Gateways;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Api.Infrastructure.Abstractions.Registrations;
+namespace Client.Infrastructure.Abstractions.Registrations;
 
 public static class GatewayRegistration
 {
